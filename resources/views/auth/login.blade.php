@@ -26,9 +26,6 @@
                     <input placeholder="@gmail.com" type="email" id="email" name="email" value="{{ old('email') }}" 
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') @enderror" 
                         required autofocus>
-                    @error('email')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
                 </div>
                 
                 <div class="mb-6">
@@ -36,9 +33,6 @@
                     <input placeholder="Masukkan kata sandi" type="password" id="password" name="password" 
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') @enderror" 
                         required>
-                    @error('password')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
                 </div>
                 
                 <div class="mb-6">
@@ -61,7 +55,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 title: "Error!",
-                text: "{{ $errors->first() }}",
+                text: "Wrong Email or Password",
                 icon: "error",
                 confirmButtonText: "OK",
                 confirmButtonColor: "#3085d6"
