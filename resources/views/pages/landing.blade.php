@@ -55,7 +55,7 @@
     
     <div class="flex justify-center items-center mt-[116px] h-[500px] bg-[rgba(243,172,80,0.2)]">
         <div class="">
-            <div class="w-[1580px] px-7 flex justify-between">
+            <div class="w-[1500px] px-7 flex justify-between">
                 <div class="flex flex-col gap-[48px] justify-between w-[950px]">
                     <div class="flex flex-col gap-[21px] pr-20">
                         <h3 class="text-[40px] font-[700]">Apa itu <span class="text-[#4880FF]">tes minat dan bakat</span> ?</h3>
@@ -75,8 +75,60 @@
         <div class="flex flex-col items-center gap-[50px]">
             <h2 class="text-[40px] font-[700]">How <span class="text-[#4880FF]">Match</span>Job Work</h2>
             
-            <div class="w-[1320px]">
-                <img src="{{ asset('landing6.png') }}" alt="">
+            <div class="w-full max-w-6xl px-4">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+                    <!-- Create account -->
+                    <div class="flex flex-col items-center w-full md:w-1/4">
+                        <img src="{{ asset('create_account.png') }}" alt="Create account" class="w-[72px]">
+                        <h3 class="mt-6 text-[18px] font-[500]">Create account</h3>
+                        <p class="text-center text-[14px] text-[#767F8C] font-[400] mt-2">Aliquam facilisis egestas sapien, nec tempor leo tristique at.</p>
+                    </div>
+                    
+                    <!-- Arrow Up -->
+                    <div class="h-[190px] w-[222px] mx-[-30px]">
+                        <img src="{{ asset('arrows_up.png') }}" alt="Arrow" class="hidden md:block">
+                    </div>
+                    
+                    <!-- Upload CV -->
+                    <div class="flex flex-col items-center w-full md:w-1/4">
+                        <div class="bg-[#F3AC50] rounded-full p-1">
+                            <img src="{{ asset('cv.png') }}" alt="Upload CV" class="w-[72px]">
+                        </div>
+                        <h3 class="mt-6 text-[18px] font-[500]">Upload CV/Resume</h3>
+                        <p class="text-center text-[14px] text-[#767F8C] font-[400] mt-2">Curabitur sit amet maximus ligula. Nam a nulla ante. Nam sodales</p>
+                    </div>
+                    
+                    <!-- Arrow Down -->
+                    <div class="w-[222px] mx-[-10px]">
+                        <img src="{{ asset('arrows_down.png') }}" alt="Arrow" class="hidden md:block">
+                    </div>
+
+                    <!-- Find Job -->
+                    <div class="flex flex-col items-center w-full md:w-1/4">
+                        <img src="{{ asset('find_job.png') }}" alt="Find Job" class="w-[72px]">
+                        <h3 class="mt-6 text-[18px] font-[500]">Find suitable job</h3>
+                        <p class="text-center text-[14px] text-[#767F8C] font-[400] mt-2">Phasellus quis eleifend ex. Morbi nec fringilla nibh.</p>
+                    </div>
+
+                    <!-- Arrow Up -->
+                    <div class="h-[190px] w-[222px] mx-[-30px]">
+                        <img src="{{ asset('arrows_up.png') }}" alt="Arrow" class="hidden md:block">
+                    </div>
+
+                    <!-- Apply Job -->
+                    <div class="flex flex-col items-center w-full md:w-1/4">
+                        <img src="{{ asset('apply_job.png') }}" alt="Apply Job" class="w-[72px]">
+                        <h3 class="mt-6 text-[18px] font-[500]">Apply job</h3>
+                        <p class="text-center text-[14px] text-[#767F8C] font-[400] mt-2">Curabitur sit amet maximus ligula. Nam a nulla ante, Nam sodales purus.</p>
+                    </div>
+                </div>
+
+                <!-- Mobile version arrows (visible only on small screens) -->
+                <div class="flex flex-col items-center md:hidden gap-4 mt-8">
+                    <img src="{{ asset('arrows_down.png') }}" alt="Arrow Down" class="w-32 transform rotate-90">
+                    <img src="{{ asset('arrows_up.png') }}" alt="Arrow Up" class="w-32 transform rotate-90">
+                    <img src="{{ asset('arrows_down.png') }}" alt="Arrow Down" class="w-32 transform rotate-90">
+                </div>
             </div>
         </div>
     </div>
@@ -88,9 +140,7 @@
         </div>
     </div>
 
-    <div class="mt-52 text-center text-[20px] font-[400]">
-        ini footer nantii
-    </div>
+    @include('component.footer')
 
 
 
