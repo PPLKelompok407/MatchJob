@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analisis</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js -->
+    <!--Alpine.js-->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-[#EDF2FF]">
     @include('component.navbar')
     
-    {{-- Sidebar --}}
+    {{--Sidebar--}}
     @include('component.sidebar')
 
 </body>
