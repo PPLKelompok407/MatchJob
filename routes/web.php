@@ -4,13 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 
-Route::get('/', function () {
-    return view('pages.landing');
-});
-
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-});
 
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
