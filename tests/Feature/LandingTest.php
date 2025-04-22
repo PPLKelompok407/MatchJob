@@ -9,7 +9,7 @@ use Tests\TestCase;
 class LandingTest extends TestCase
 {
     /**
-     * A basic feature test example.
+     * A basic feature test example
      */
     public function test_example(): void
     {
