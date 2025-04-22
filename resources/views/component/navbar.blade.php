@@ -1,7 +1,7 @@
-<nav class="bg-white shadow-md py-4 sticky top-0 left-0 right-0 w-full z-50">
+<nav class="bg-white shadow-md py-4 sticky top-0 left-0 right-0 w-full z-49">
     <div class="container mx-auto px-4 grid grid-cols-3 items-center">
         <!-- Logo and Name -->
-        <div>
+        <div class="z-50">
             <img src="{{ asset('logo.png') }}" alt="MatchJob Logo" class="">
         </div>
         
@@ -31,7 +31,7 @@
                     
                     <!-- Dropdown Menu -->
                     <div id="profile-dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden z-50">
-                        <a href="#" class="flex items-center px-4 py-2 text-sm text-[#353535] font-[500] hover:bg-gray-100">
+                        <a href="{{ route('pages.profile.personal') }}" class="flex items-center px-4 py-2 text-sm text-[#353535] font-[500] hover:bg-gray-100">
                             <img src="{{ asset('profile.png') }}" alt="Profile Icon" class="w-5 h-5 mr-3">
                             Profil Saya
                         </a>
