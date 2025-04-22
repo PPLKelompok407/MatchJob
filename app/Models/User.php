@@ -22,6 +22,12 @@ class User extends Authenticatable
         'email',
         'notelp',
         'password',
+        'jenisa_kelamin',
+        'riwayat_pendidikan',
+        'tempat_tanggal_lahir',
+        'alamat',
+        'riwayat_kerja',
+        'dokumen_pdf_path',
     ];
 
     /**
