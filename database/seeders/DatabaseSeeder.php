@@ -13,11 +13,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Only create the test user if it doesn't exist
+        if (!User::where('email', 'ajam@gmail.com')->exists()) {
+            User::factory()->create([
+                'name' => 'ajam_gamink',
+                'email' => 'ajam@gmail.com',
+                'notelp' => 628138523522,
+                'password' =>  'qwe123qwe',
+                'jenisa_kelamin' => 'Laki-laki',
+                'riwayat_pendidikan' => 'S1 Sistem Informasi Telkom University',
+                'tempat_tanggal_lahir' => 'Bekasi, 25 september 2004',
+                'alamat' => 'Bojong Santos',
+                'riwayat_kerja' => 'Ngoding sampai tamat',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Run additional seeders
+        $this->call([
+            AdminSeeder::class,
+            // TestMikat::class,
+            // TestSosec::class,
         ]);
     }
 }
