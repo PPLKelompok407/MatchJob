@@ -7,14 +7,23 @@ use App\Http\Controllers\MikatController;
 use App\Http\Controllers\SosecController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\PerusahaanController;
 
 Route::get('/', function () {
     return view('pages.landing');
 });
 
+// Add home route that redirects to dashboard
+
 Route::get('/dashboard', function () {
     return view('pages.dashboard');
 })->name('pages.dashboard');
+
+// Perusahaan Routes
+Route::get('/perusahaan', [PerusahaanController::class, 'index'])
+    ->name('perusahaan.list')
+    ->middleware('auth')
+    ->middleware(\App\Http\Middleware\TestCompletionCheck::class);
 
 // Authentication Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

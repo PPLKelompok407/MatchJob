@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- Leaflet CSS -->
@@ -115,6 +117,24 @@
             </div>
         </div>
     </div>
+
+    <!-- SweetAlert for Address Required -->
+    @if(session('address_required'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "Perhatian!",
+                text: "{{ session('address_message') }}",
+                icon: "warning",
+                confirmButtonText: "OK",
+                confirmButtonColor: "#4880FF"
+            }).then(() => {
+                // Focus on alamat field after alert is closed
+                document.getElementById('alamat-input').focus();
+            });
+        });
+    </script>
+    @endif
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

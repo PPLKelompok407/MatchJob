@@ -1,3 +1,6 @@
+@php
+use Illuminate\Support\Facades\Auth;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,9 +27,27 @@
                         <p>Match Job, sahabat terbaik pencari kerja.</p>
                     </div>
 
-                    <button class="w-[187px] h-[60px] bg-[#4880FF] text-[18px] font-[500] text-white rounded-[10px]">
-                        Mulai cari kerja
-                    </button>
+                    @auth
+                        @php
+                            $user = Auth::user();
+                            $mikatCompleted = !empty($user->test_mikat);
+                            $sosecCompleted = !empty($user->test_sosec);
+                        @endphp
+
+                        @if($mikatCompleted && $sosecCompleted)
+                            <a href="{{ route('perusahaan.list') }}" class="w-[187px] h-[60px] bg-[#4880FF] text-[18px] font-[500] text-white rounded-[10px] flex items-center justify-center">
+                                Mulai cari kerja
+                            </a>
+                        @else
+                            <button id="showTestRequiredAlert" class="w-[187px] h-[60px] bg-[#4880FF] text-[18px] font-[500] text-white rounded-[10px] flex items-center justify-center">
+                                Mulai cari kerja
+                            </button>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}" class="w-[187px] h-[60px] bg-[#4880FF] text-[18px] font-[500] text-white rounded-[10px] flex items-center justify-center">
+                            Mulai cari kerja
+                        </a>
+                    @endauth
                 </div>
 
                 <div class="col-span-2 flex flex-col">
@@ -155,5 +176,36 @@
         });
     </script>
     @endif
+
+    @if(session('test_required'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "Perhatian!",
+                text: "{{ session('test_required') }}",
+                icon: "warning",
+                confirmButtonText: "Mengerti",
+                confirmButtonColor: "#3085d6"
+            });
+        });
+    </script>
+    @endif
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const testRequiredButton = document.getElementById('showTestRequiredAlert');
+            if (testRequiredButton) {
+                testRequiredButton.addEventListener('click', function() {
+                    Swal.fire({
+                        title: "Perhatian!",
+                        text: "Anda harus menyelesaikan Test Softskill dan Test Minat Bakat terlebih dahulu!",
+                        icon: "warning",
+                        confirmButtonText: "Mengerti",
+                        confirmButtonColor: "#3085d6"
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
