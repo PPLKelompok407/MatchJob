@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
                 'jenisa_kelamin' => 'Laki-laki',
                 'riwayat_pendidikan' => 'S1 Sistem Informasi Telkom University',
                 'tempat_tanggal_lahir' => 'Bekasi, 25 september 2004',
-                'alamat' => 'Bojong Santos',
+                'alamat' => 'Jalan Pecinan Lama, Braga, Sumur Bandung, Bandung City, West Java, Java, 40181, Indonesia',
                 'riwayat_kerja' => 'Ngoding sampai tamat',
                 'created_at' => now(),
                 'updated_at' => now()
