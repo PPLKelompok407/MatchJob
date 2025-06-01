@@ -9,15 +9,37 @@ use Illuminate\Support\Facades\Storage;
 class ArtikelController extends Controller
 {
     /**
-     * Display a listing of the articles.
+     * Display a listing of the articles for admin.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $artikels = Artikel::latest();
+
+        if ($request->has('search')) {
+            $artikels = $artikels->where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('description', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->has('category')) {
+            $artikels = $artikels->where('category', $request->category);
+        }
+
+        $artikels = $artikels->paginate(10);
+
+        return view('admin.artikel.index', compact('artikels'));
+    }
+
+    /**
+     * Display the public artikel page with filtering capabilities.
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function publicIndex()
     {
-        $artikels = Artikel::latest()->paginate(10);
-        
-        return view('admin.artikel.index', compact('artikels'));
+        return view('pages.artikel.artikel');
     }
 
     /**
