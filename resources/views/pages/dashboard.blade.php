@@ -161,6 +161,8 @@ use Illuminate\Support\Facades\Auth;
         </div>
     </div>
 
+    @include('pages.artikel.artikel')
+
     @include('component.footer')
 
     @if(session('success'))

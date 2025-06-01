@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         // Run additional seeders
         $this->call([
             AdminSeeder::class,
+            // Artikel::class,
             // TestMikat::class,
             // TestSosec::class,
         ]);

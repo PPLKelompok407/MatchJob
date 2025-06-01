@@ -19,9 +19,17 @@ Route::get('/dashboard', function () {
     return view('pages.dashboard');
 })->name('pages.dashboard');
 
+// Artikel Routes
+Route::get('/artikel', [ArtikelController::class, 'publicIndex'])->name('artikel.index');
+
 // Perusahaan Routes
 Route::get('/perusahaan', [PerusahaanController::class, 'index'])
     ->name('perusahaan.list')
+    ->middleware('auth')
+    ->middleware(\App\Http\Middleware\TestCompletionCheck::class);
+    
+Route::get('/perusahaan/{id}', [PerusahaanController::class, 'show'])
+    ->name('perusahaan.detail')
     ->middleware('auth')
     ->middleware(\App\Http\Middleware\TestCompletionCheck::class);
 
