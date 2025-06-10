@@ -175,12 +175,12 @@ class PerusahaanController extends Controller
     {
         // RIASEC categories mapping to job divisions
         $sosecCategories = [
-            'R' => ['teknik', 'mekanik', 'produksi', 'konstruksi', 'engineering', 'operator', 'teknisi'],
-            'I' => ['penelitian', 'analisis', 'data', 'laboratorium', 'ilmiah', 'riset', 'pengembangan'],
-            'A' => ['desain', 'seni', 'kreatif', 'media', 'konten', 'produksi', 'visual', 'musik'],
-            'S' => ['pendidikan', 'kesehatan', 'konseling', 'pelayanan', 'customer service', 'sosial', 'hr', 'sdm'],
-            'E' => ['marketing', 'sales', 'bisnis', 'manajemen', 'koordinator', 'supervisor', 'pimpinan'],
-            'C' => ['administrasi', 'keuangan', 'akuntansi', 'audit', 'data entry', 'sekretaris', 'dokumentasi']
+        'R' => ['engineering', 'mechanical', 'production', 'construction', 'operator', 'technician', 'field work'],
+        'I' => ['research', 'analysis', 'data', 'laboratory', 'scientific', 'development', 'analyst'],
+        'A' => ['design', 'art', 'creative', 'media', 'content', 'visual', 'music', 'writing'],
+        'S' => ['education', 'health', 'counseling', 'service', 'customer service', 'social', 'hr', 'human resources'],
+        'E' => ['marketing', 'sales', 'business', 'management', 'coordinator', 'supervisor', 'leadership', 'persuasion'],
+        'C' => ['administration', 'finance', 'accounting', 'audit', 'data entry', 'secretary', 'documentation', 'clerical']
         ];
         
         // Extract RIASEC code from user's sosec result (assuming format like "RIA - Realistic, Investigative, Artistic")
