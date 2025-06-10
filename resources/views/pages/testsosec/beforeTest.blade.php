@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Before Test Minat dan Bakat</title>
+    <title>Before Test Softskill RIASEC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -22,32 +22,32 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                     </a>
-                    <h3 class="text-[32px] font-[700]">TES MINAT DAN BAKAT - PILIHAN GANDA</h3>
+                    <h3 class="text-[32px] font-[700]">TES SOFTSKILL RIASEC</h3>
                 </div>
             </div>
 
             <div class="bg-white p-8 rounded-lg shadow-md">
-                <p class="mb-6 text-gray-700">Welcome to your test preparation page! We're here to ensure you're ready to face the test with confidence. Before you begin, there are some important points you need to know:</p>
+                <p class="mb-6 text-gray-700">Welcome to the RIASEC Soft Skills Test! This test will help identify your career interests and personal preferences. Before you begin, please read these important instructions:</p>
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-start">
                         <span class="font-[500] text-[#1C1C1C] text-[18px] mr-2 mt-1">•</span>
-                        <span class="text-gray-700">This test will close on April 26, 2024, at 23:59. You have 90 minutes to complete the entire test. Make sure you make the most of your time to answer all the questions.</span>
+                        <span class="text-gray-700">This test will take approximately 30 minutes to complete. You'll be presented with a series of statements about different activities and you'll need to rate your interest level for each one.</span>
                     </li>
                     <li class="flex items-start">
                         <span class="font-[500] text-[#1C1C1C] text-[18px] mr-2 mt-1">•</span>
-                        <span class="text-gray-700">The test consists of two questions types : 20 multiple choice and 5 essay. Make sure to carefully read each instruction before answering the questions.</span>
+                        <span class="text-gray-700">The test consists of 30 questions covering six categories of RIASEC : Realistic, Investigative, Artistic, Social, Enterprising, and Conventional. Your responses will determine your primary personality type.</span>
                     </li>
                     <li class="flex items-start">
                         <span class="font-[500] text-[#1C1C1C] text-[18px] mr-2 mt-1">•</span>
-                        <span class="text-gray-700">You will not be able to return to previous multiple-choice questions while on the essay questions page. Be sure to provide your best answer to each question, as there is no opportunity to go back and change your answers.</span>
+                        <span class="text-gray-700">Be honest with your responses. There are no right or wrong answers—the goal is to identify your genuine interests and preferences to help guide future career decisions.</span>
                     </li>
                     <li class="flex items-start">
                         <span class="font-[500] text-[#1C1C1C] text-[18px] mr-2 mt-1">•</span>
-                        <span class="text-gray-700">To ensure the authenticity of the test, we ask you not to open any other pages or tabs during the test. This helps us ensure that each participant receives a fair and balanced test experience.</span>
+                        <span class="text-gray-700">To ensure accurate results, please complete the test in one sitting without interruptions. Your responses will be saved as you progress through the test.</span>
                     </li>
                 </ul>
                 <div class="flex justify-center">
-                    <a href="{{ route('mikat.show', ['page' => 1]) }}" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition duration-300">Mulai Tes</a>
+                    <a href="{{ route('sosec.show', ['page' => 1]) }}" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition duration-300">Mulai Tes</a>
                 </div>
             </div>
         </div>
