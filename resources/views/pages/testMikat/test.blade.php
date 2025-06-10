@@ -112,7 +112,7 @@
                                 </a>
                                 
                                 <input type="hidden" name="next_page" value="{{ ($currentPage ?? 1) + 1 }}">
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition duration-300">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition duration-300" id="submitButton">
                                     {{ ($currentPage ?? 1) >= count($soalMikat) ? 'Submit' : 'Halaman Selanjutnya' }}
                                 </button>
                             </div>
@@ -189,10 +189,25 @@
         // Check if server requested timer reset
         @if(session('clear_timer'))
             localStorage.removeItem('testStartTime');
+            localStorage.removeItem('timeoutAlertShown');
         @endif
         
         // Set the time limit in seconds (90 minutes = 5400 seconds)
         const TIME_LIMIT = 5400;
+        
+        // Check if this is a new page load (not a refresh or navigation within the test)
+        const currentPage = {{ $currentPage ?? 1 }};
+        const lastVisitedPage = localStorage.getItem('lastVisitedPageMikat');
+        
+        // If this is the first page (page 1) and we're coming from outside the test
+        // or if this is the first time visiting any page of the test, reset the timer
+        if (currentPage == 1 && (!lastVisitedPage || lastVisitedPage == 'external')) {
+            localStorage.removeItem('testStartTime');
+            localStorage.removeItem('timeoutAlertShown');
+        }
+        
+        // Update the last visited page
+        localStorage.setItem('lastVisitedPageMikat', currentPage);
         
         // Get start time from localStorage or set new one
         let startTime = localStorage.getItem('testStartTime');
@@ -210,19 +225,29 @@
             if (remainingTime <= 0) {
                 // Time's up
                 clearInterval(timer);
-                Swal.fire({
-                    title: 'Waktu Habis!',
-                    text: 'Anda harus mengulang tes dari awal.',
-                    icon: 'warning',
-                    confirmButtonText: 'Mulai Ulang',
-                    allowOutsideClick: false
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Clear localStorage and redirect to first question
-                        localStorage.removeItem('testStartTime');
-                        window.location.href = "{{ route('mikat.show', ['page' => 1]) }}";
-                    }
-                });
+                
+                // Check if this is a genuine timeout (not just page load with expired timer)
+                const timeoutShown = localStorage.getItem('timeoutAlertShown');
+                if (!timeoutShown) {
+                    // Mark that we've shown the timeout alert
+                    localStorage.setItem('timeoutAlertShown', 'true');
+                    
+                    Swal.fire({
+                        title: 'Waktu Habis!',
+                        text: 'Anda harus mengulang tes dari awal.',
+                        icon: 'warning',
+                        confirmButtonText: 'Mulai Ulang',
+                        allowOutsideClick: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Clear localStorage and redirect to first question
+                            localStorage.removeItem('testStartTime');
+                            localStorage.removeItem('timeoutAlertShown');
+                            localStorage.removeItem('lastVisitedPageMikat');
+                            window.location.href = "{{ route('mikat.show', ['page' => 1]) }}";
+                        }
+                    });
+                }
                 return;
             }
             
@@ -238,6 +263,17 @@
             // Update hidden input for form submission
             document.getElementById('current_time').value = elapsedTime;
         }, 1000);
+        
+        // Check if this is the last page and add event listener to reset timer on submit
+        const isLastPage = {{ ($currentPage ?? 1) >= count($soalMikat) ? 'true' : 'false' }};
+        if (isLastPage) {
+            document.getElementById('submitButton').addEventListener('click', function() {
+                // Reset all timer related localStorage items when submitting the final page
+                localStorage.removeItem('testStartTime');
+                localStorage.removeItem('timeoutAlertShown');
+                localStorage.removeItem('lastVisitedPageMikat');
+            });
+        }
         
         // Flag question functionality
         document.getElementById('flagToggle').addEventListener('click', function() {

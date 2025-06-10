@@ -37,7 +37,7 @@
                         </div>
                         <div class="grid grid-cols-3 gap-4 py-3 border-b border-gray-100">
                             <dt class="text-sm font-medium text-gray-500">Gender</dt>
-                            <dd class="text-sm font-medium text-gray-900 col-span-2">{{ $user->jenis_kelamin ?? 'Not provided' }}</dd>
+                            <dd class="text-sm font-medium text-gray-900 col-span-2">{{ $user->jenisa_kelamin ?? 'Not provided' }}</dd>
                         </div>
                         <div class="grid grid-cols-3 gap-4 py-3 border-b border-gray-100">
                             <dt class="text-sm font-medium text-gray-500">Birth Info</dt>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             
-            <div class="space-y-6">
+            <div class="flex flex-col justify-between">
                 <!-- Education & Work History -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                     <div class="bg-gray-50 px-6 py-3 border-b border-gray-200">
@@ -66,10 +66,6 @@
                             <div class="grid grid-cols-3 gap-4 py-3 border-b border-gray-100">
                                 <dt class="text-sm font-medium text-gray-500">Work History</dt>
                                 <dd class="text-sm font-medium text-gray-900 col-span-2">{{ $user->riwayat_kerja ?? 'Not provided' }}</dd>
-                            </div>
-                            <div class="grid grid-cols-3 gap-4 py-3">
-                                <dt class="text-sm font-medium text-gray-500">Job Placement</dt>
-                                <dd class="text-sm font-medium text-gray-900 col-span-2">{{ $user->penempatan_kerja ?? 'Not specified' }}</dd>
                             </div>
                         </dl>
                     </div>
@@ -91,20 +87,6 @@
                                 <p>{{ $user->test_sosec ? 'Completed' : 'Not Completed' }}</p>
                             </div>
                         </div>
-                        
-                        @if($user->dokumen_pdf_path)
-                            <div class="mt-4">
-                                <a href="{{ asset('storage/' . $user->dokumen_pdf_path) }}" 
-                                   class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded flex items-center justify-center" 
-                                   target="_blank">
-                                    <i class="fas fa-file-pdf mr-2"></i> View Document
-                                </a>
-                            </div>
-                        @else
-                            <div class="mt-4 bg-blue-50 text-blue-700 p-4 rounded">
-                                No documents uploaded.
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>

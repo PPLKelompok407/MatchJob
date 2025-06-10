@@ -17,17 +17,34 @@
                     @csrf
                     
                     <div class="mb-4">
-                        <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
-                        <input type="text" class="w-full px-3 py-2 border @error('title') border-red-500 @else border-gray-300 @enderror rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
-                            id="title" name="title" value="{{ old('title') }}" required>
-                        @error('title')
+                        <label for="judul" class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                        <input type="text" class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('judul') border-red-500 @else border-gray-300 @enderror" 
+                            id="judul" name="judul" value="{{ old('judul') }}" required>
+                        @error('judul')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <select class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('category') border-red-500 @else border-gray-300 @enderror" 
+                            id="category" name="category" required>
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="tips" {{ old('category') == 'tips' ? 'selected' : '' }}>Tips & Tricks</option>
+                            <option value="event" {{ old('category') == 'event' ? 'selected' : '' }}>Event</option>
+                            <option value="berita" {{ old('category') == 'berita' ? 'selected' : '' }}>Berita</option>
+                            <option value="soft skill" {{ old('category') == 'soft skill' ? 'selected' : '' }}>Soft Skill</option>
+                            <option value="hard skill" {{ old('category') == 'hard skill' ? 'selected' : '' }}>Hard Skill</option>
+                            <option value="tutorial" {{ old('category') == 'tutorial' ? 'selected' : '' }}>Tutorial</option>
+                        </select>
+                        @error('category')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                     
                     <div class="mb-4">
                         <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <textarea class="w-full px-3 py-2 border @error('description') border-red-500 @else border-gray-300 @enderror rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+                        <textarea class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-500 @else border-gray-300 @enderror" 
                             id="description" name="description" rows="5" required>{{ old('description') }}</textarea>
                         @error('description')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -36,7 +53,7 @@
                     
                     <div class="mb-4">
                         <label for="link" class="block text-sm font-medium text-gray-700 mb-2">Link</label>
-                        <input type="text" class="w-full px-3 py-2 border @error('link') border-red-500 @else border-gray-300 @enderror rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+                        <input type="text" class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('link') border-red-500 @else border-gray-300 @enderror" 
                             id="link" name="link" value="{{ old('link') }}" required>
                         @error('link')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -45,7 +62,7 @@
                     
                     <div class="mb-4">
                         <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Image</label>
-                        <input type="file" class="w-full px-3 py-2 border @error('image') border-red-500 @else border-gray-300 @enderror rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+                        <input type="file" class="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('image') border-red-500 @else border-gray-300 @enderror" 
                             id="image" name="image" required>
                         <p class="mt-1 text-sm text-gray-500">Allowed formats: JPEG, PNG, JPG, GIF (Max: 2MB)</p>
                         @error('image')

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Perusahaan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class PerusahaanController extends Controller
 {
@@ -73,9 +74,17 @@ class PerusahaanController extends Controller
             }
             
             // Calculate address proximity score (40%)
+            // This uses the improved calculateAddressScore method that aligns with Leaflet map calculations
             if ($user->alamat && $company->alamat) {
                 $addressScore = $this->calculateAddressScore($company->alamat, $user->alamat);
+                
+                // Store the raw address score for display purposes
+                $company->address_match = round($addressScore * 100);
+                
+                // Add the weighted score to the total
                 $score += $addressScore * $weights['alamat'];
+            } else {
+                $company->address_match = 0;
             }
             
             // Store the score with the company
@@ -86,7 +95,7 @@ class PerusahaanController extends Controller
         $sortedCompanies = $companies->sortByDesc('match_score');
         
         // Take top 5 companies or all if less than 5
-        return $sortedCompanies->take(20)->values();
+        return $sortedCompanies->take(5)->values();
     }
     
     /**
@@ -266,29 +275,31 @@ class PerusahaanController extends Controller
         if ($companyCoords && $userCoords) {
             // Calculate distance in kilometers
             $distance = $this->calculateDistance(
-                $userCoords['lat'], 
-                $userCoords['lng'], 
-                $companyCoords['lat'], 
+                $userCoords['lat'],
+                $userCoords['lng'],
+                $companyCoords['lat'],
                 $companyCoords['lng']
             );
             
-            // Convert distance to a score (closer = higher score)
-            // Adjust these thresholds based on your specific needs
-            if ($distance < 1) { // Less than 1km
-                return 1.0;
-            } elseif ($distance < 5) { // Less than 5km
-                return 0.9;
-            } elseif ($distance < 10) { // Less than 10km
-                return 0.8;
-            } elseif ($distance < 20) { // Less than 20km
-                return 0.7;
-            } elseif ($distance < 50) { // Less than 50km
-                return 0.6;
-            } elseif ($distance < 100) { // Less than 100km
-                return 0.5;
-            } else {
-                return 0.4; // Different cities but still somewhat close
-            }
+            // Convert distance to a score (closer = higher score) using an inverse exponential function
+            // This provides a smoother transition between distances and better aligns with Leaflet routing
+            
+            // Maximum distance to consider (in km)
+            $maxDistance = 100;
+            
+            // Cap the distance at the maximum
+            $distance = min($distance, $maxDistance);
+            
+            // Calculate score: 1.0 (at 0km) to 0.4 (at maxDistance km)
+            // Using exponential decay formula: score = min_score + (max_score - min_score) * e^(-distance/scale_factor)
+            $minScore = 0.4;  // Minimum score for very distant locations
+            $maxScore = 1.0;  // Maximum score for exact same location
+            $scaleFactor = 20; // Controls how quickly the score drops with distance
+            
+            $score = $minScore + ($maxScore - $minScore) * exp(-$distance / $scaleFactor);
+            
+            // Round to 2 decimal places for consistency
+            return round($score, 2);
         }
         
         // Fallback to region-based matching if coordinates are not available
@@ -405,13 +416,58 @@ class PerusahaanController extends Controller
      */
     private function getCoordinatesFromAddress($address)
     {
-        // This function will be called from the client-side using Leaflet
-        // We'll store the coordinates in the session for this example
-        // In a real implementation, you might want to use a geocoding API or database
+        if (empty($address)) {
+            return null;
+        }
         
-        // For now, we'll return null to indicate that coordinates should be
-        // obtained from the client-side using Leaflet
-        return null;
+        // Create a cache key based on the address
+        $cacheKey = 'geocode_' . md5($address);
+        
+        // Check if we have this address cached
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+        
+        // Use Nominatim API for geocoding (same as what Leaflet uses on client-side)
+        $encodedAddress = urlencode($address);
+        $url = "https://nominatim.openstreetmap.org/search?q={$encodedAddress}&format=json&limit=1&addressdetails=0";
+        
+        // Set a custom user agent as required by Nominatim's usage policy
+        $options = [
+            'http' => [
+                'header' => "User-Agent: JobMatch-App/1.0\r\n",
+                'timeout' => 5 // Set a 5 second timeout
+            ]
+        ];
+        $context = stream_context_create($options);
+        
+        try {
+            // No sleep delay - we'll use caching instead to respect rate limits
+            $response = @file_get_contents($url, false, $context);
+            if ($response === false) {
+                return null;
+            }
+            
+            $data = json_decode($response, true);
+            if (empty($data)) {
+                return null;
+            }
+            
+            // Extract coordinates from the first result
+            $result = [
+                'lat' => (float) $data[0]['lat'],
+                'lng' => (float) $data[0]['lon']
+            ];
+            
+            // Cache the result for 30 days
+            Cache::put($cacheKey, $result, now()->addDays(30));
+            
+            return $result;
+        } catch (\Exception $e) {
+            // Log error if needed
+            // \Log::error('Geocoding error: ' . $e->getMessage());
+            return null;
+        }
     }
     
     /**
@@ -463,8 +519,8 @@ class PerusahaanController extends Controller
     {
         $perusahaan = Perusahaan::findOrFail($id);
         
-        // Calculate distance if user is logged in
-        $distance = 5.2; // Default placeholder value
+        // Initialize with default values
+        $distance = 0; // Will be calculated by Leaflet map component
         $testBakatScore = 78; // Default placeholder value
         $testRiasecScore = 69; // Default placeholder value
         
@@ -472,13 +528,9 @@ class PerusahaanController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             
-            // Calculate address score if both addresses are available
-            if ($user->alamat && $perusahaan->alamat) {
-                $addressScore = $this->calculateAddressScore($perusahaan->alamat, $user->alamat);
-                // Convert to a distance in KM (simplified for example)
-                $distance = round(10 - ($addressScore * 10), 1);
-                $distance = max(0.5, min(10, $distance)); // Ensure between 0.5 and 10 KM
-            }
+            // Note: The distance calculation below is a placeholder
+            // The actual distance will be calculated by the Leaflet map component
+            // using the geocoded addresses and routing information
             
             // Calculate test match scores if test results are available
             if ($user->test_mikat) {

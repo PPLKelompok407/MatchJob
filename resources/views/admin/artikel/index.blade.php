@@ -19,6 +19,7 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Link</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
@@ -30,18 +31,21 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $artikel->id }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <img src="{{ asset('storage/' . $artikel->image) }}" 
-                                        alt="{{ $artikel->title }}" 
+                                    <img src="{{ asset($artikel->image) }}" 
+                                        alt="{{ $artikel->judul }}" 
                                         class="h-16 w-20 object-cover rounded">
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ Str::limit($artikel->title, 30) }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ Str::limit($artikel->judul, 30) }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-block bg-[#F4C467] text-[#252641] text-sm font-medium rounded-full px-3 py-1">{{ $artikel->category ?? 'Uncategorized' }}</span>
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ Str::limit($artikel->description, 50) }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     <a href="{{ $artikel->link }}" target="_blank" class="text-blue-600 hover:text-blue-900">
                                         {{ Str::limit($artikel->link, 30) }}
                                     </a>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $artikel->created_at->format('d M Y') }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $artikel->created_at ? $artikel->created_at->format('d M Y') : 'N/A' }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex space-x-2">
                                         <a href="{{ route('admin.artikel.edit', $artikel->id) }}" class="text-yellow-600 hover:text-yellow-900 bg-yellow-100 py-1 px-3 rounded">

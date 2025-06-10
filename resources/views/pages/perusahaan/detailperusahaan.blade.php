@@ -88,7 +88,7 @@ use Illuminate\Support\Facades\Auth;
                         <h3 class="font-medium text-gray-800 mb-3">Jarak kantor dari rumah mu</h3>
                         <div class="flex items-center mb-4">
                             <i class="fas fa-location-dot mr-2 text-gray-600"></i>
-                            <span class="font-medium">{{ $distance }} KM</span>
+                            <span class="font-medium"><span class="distance-value">{{ $distance }}</span> KM</span>
                         </div>
                         
                         <h3 class="font-medium text-gray-800 mb-3">Keakuratan posisi dengan hasil tesmu</h3>
@@ -144,6 +144,20 @@ use Illuminate\Support\Facades\Auth;
             </div>
         </div>
     </div>
+    @include('pages.perusahaan.map-component')
 
+    <script>
+        // Listen for messages from the map component
+        window.addEventListener('message', function(event) {
+            // Check if the message contains distance data
+            if (event.data && event.data.distance) {
+                // Update all elements with the distance-value class
+                const distanceElements = document.querySelectorAll('.distance-value');
+                distanceElements.forEach(element => {
+                    element.textContent = event.data.distance;
+                });
+            }
+        }, false);
+    </script>
 </body>
 </html>
