@@ -134,7 +134,7 @@ class SosecController extends Controller
         
         // Hindari pembagian dengan nol
         if ($totalSkor == 0) {
-            $totalSkor = 1; // Set default ke 1 untuk menghindari division by zero
+            $totalSkor = 1; // Set default to 1 to avoid division by zero
         }
 
         // Urutkan skor dari tertinggi ke terendah
@@ -150,7 +150,6 @@ class SosecController extends Controller
             'top_three' => $topThree
         ]);
         
-        // Clear test ses
     }
 
     public function flagQuestion(Request $request, $page)
@@ -188,7 +187,7 @@ class SosecController extends Controller
             'conventional' => 'Tipe Konvensional - Anda menyukai pekerjaan yang terstruktur dan mengikuti prosedur yang jelas. Anda cenderung terorganisir, teliti, dan menyukai lingkungan kerja yang teratur dan terstruktur.'
         ];
 
-        // Rekomendasi karir untuk setiap kombinasi 3 huruf teratas
+        // Career recommendations for each top 3 letter combination
         $rekomendasi = $this->getRekomendasiKarir(array_keys($topThree));
 
         return view('pages.testSosec.hasil', compact('skor', 'totalSkor', 'topThree', 'deskripsi', 'rekomendasi'));
