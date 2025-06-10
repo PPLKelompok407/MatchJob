@@ -16,10 +16,10 @@ class AnalysTest extends TestCase
      */
     public function test_analys(): void
     {
-        // Buat user testing
+        // Buat user melakukan testing
         $user = User::factory()->create();
         
-        // Login sebagai user testing
+        // Login sebagai user untuk mendapatkan akses ke fitur testing
         $this->actingAs($user);
 
         // Akses endpoint yang dilindungi oleh middleware auth

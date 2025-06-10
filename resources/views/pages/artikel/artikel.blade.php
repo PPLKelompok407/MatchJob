@@ -64,12 +64,12 @@
             @php
                 $artikelQuery = \App\Models\Artikel::query();
                 
-                // Apply category filters if selected
+                // Fitur Filter berdasarkan katagori
                 if(request('categories') && is_array(request('categories'))) {
                     $artikelQuery->whereIn('category', request('categories'));
                 }
                 
-                // Apply search filter if provided
+                // Fitur Fitler berdasarkan search kata kunci
                 if(request('search')) {
                     $search = request('search');
                     $artikelQuery->where(function($query) use ($search) {

@@ -20,11 +20,7 @@ class MikatController extends Controller
         
         // Check if questions exist
         if ($soalMikat->isEmpty()) {
-<<<<<<< HEAD
-            return redirect()->route('home')->with('error', 'Soal tes belum tersedia');
-=======
             return redirect()->route('pages.dashboard')->with('error', 'Soal tes belum tersedia');
->>>>>>> origin/main
         }
         
         // Ensure page number is valid
@@ -65,7 +61,7 @@ class MikatController extends Controller
         // Store answer if provided
         $answerKey = 'jawaban_' . $page;
         if ($request->has($answerKey)) {
-            // Only update the current page's answer
+            // Hanya update lembar sekarang sudah di answer
             $answers[$answerKey] = $request->input($answerKey);
             session(['mikat_answers' => $answers]);
         }
@@ -86,7 +82,7 @@ class MikatController extends Controller
         $soalCount = DB::table('test_mikat')->count();
         
         if ((int)$nextPage > $soalCount || $request->has('submit')) {
-            // Check if all questions are answered before final submission
+            // Memeriksa jika semua pertanyaan telah terjawab sebelum di submit
             if (count($answers) === $soalCount) {
                 return $this->submitJawaban($request);
             } else {
@@ -116,14 +112,14 @@ class MikatController extends Controller
                     ->with('warning', 'Mohon jawab semua pertanyaan sebelum mengirimkan tes.');
         }
         
-        $skor = [
+        $skor = [// skor awal sebelum memulai test
             'kreatif' => 0,
             'sosial' => 0,
             'teknikal' => 0,
             'manajerial' => 0
         ];
         
-        // Logika penilaian berdasarkan jawaban
+        // Logika penilaian berdasarkan jawaban berdasarkan RIASEC
         foreach($answers as $key => $value) {
             switch($value) {
                 case 'opsi_1':
@@ -170,7 +166,7 @@ class MikatController extends Controller
     }
 
     public function showHasil()
-    {
+    {// scoring hasil testing  minat bakat
         $skor = session('skor_mikat');
         $totalSkor = session('total_skor_mikat');
 
@@ -182,7 +178,7 @@ class MikatController extends Controller
     }
 
     public function flagQuestion(Request $request, $page)
-    {
+    {//fitur bendera untuk menandai pertanyaan
         $flaggedQuestions = session('mikat_flagged', []);
         
         if (in_array($page, $flaggedQuestions)) {
@@ -198,7 +194,7 @@ class MikatController extends Controller
 
     private function getKategoriMikat($kategori)
     {
-        $kategoriMikat = [
+        $kategoriMikat = [// deskripsi kategori minat dan bakat
             'kreatif' => 'Kreatif (Seni, Desain, dan Kreativitas)',
             'sosial' => 'Sosial (Komunikasi dan Hubungan Interpersonal)',
             'teknikal' => 'Teknikal (Teknik dan Analisis)',

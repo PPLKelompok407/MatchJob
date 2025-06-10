@@ -1,30 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- // Tampilan analisis hasil test profile -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Analisis</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!--Alpine.js-->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-=======
     <title>Analisis Profil - MatchJob</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
->>>>>>> origin/main
 </head>
 <body class="bg-[#EDF2FF]">
     @include('component.navbar')
     
-<<<<<<< HEAD
-    {{--Sidebar--}}
-    @include('component.sidebar')
-
-=======
     <div class="container mx-auto px-4 py-8 max-w-6xl">
         <div class="flex flex-col md:flex-row gap-8">
             <!-- Sidebar -->
@@ -133,7 +122,7 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Mikat Test Chart (Minat dan Bakat)
+            // Mikat Test Chart (Diagram Analisis Minat dan Bakat)
             const mikatCtx = document.getElementById('mikatChart').getContext('2d');
             const mikatChart = new Chart(mikatCtx, {
                 type: 'pie',
@@ -168,7 +157,7 @@
                 }
             });
             
-            // Sosec Test Chart (Softskill Riasec)
+            // Sosec Test Chart (Diagram Analisis Softskill Riasec)
             const sosecCtx = document.getElementById('sosecChart').getContext('2d');
             const sosecChart = new Chart(sosecCtx, {
                 type: 'pie',
@@ -203,6 +192,5 @@
             });
         });
     </script>
->>>>>>> origin/main
 </body>
 </html>

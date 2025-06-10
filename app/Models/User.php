@@ -17,7 +17,9 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
+    
+     //variabel array data yang diperlukan pada user
+     protected $fillable = [
         'name',
         'email',
         'notelp',
@@ -28,12 +30,9 @@ class User extends Authenticatable
         'alamat',
         'riwayat_kerja',
         'dokumen_pdf_path',
-<<<<<<< HEAD
-=======
         'test_mikat',
         'tes_teknis',
         'penempatan_kerja',
->>>>>>> origin/main
     ];
 
     /**

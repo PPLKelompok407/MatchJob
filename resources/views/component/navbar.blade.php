@@ -2,13 +2,9 @@
     <div class="container mx-auto px-4 grid grid-cols-3 items-center">
         <!-- Logo and Name -->
         <div class="z-50">
-<<<<<<< HEAD
-            <img src="{{ asset('logo.png') }}" alt="MatchJob Logo" class="">
-=======
             <a href="{{ route('pages.dashboard') }}">
                 <img src="{{ asset('logo.png') }}" alt="MatchJob Logo" class="">
             </a>
->>>>>>> origin/main
         </div>
         
         <!-- Navigation Links -->

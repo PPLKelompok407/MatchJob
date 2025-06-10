@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    {// membuat database artikel beserta array datanya
         Schema::create('artikel', function (Blueprint $table) {
             $table->id();
             $table->string('link');
