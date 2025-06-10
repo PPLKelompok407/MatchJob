@@ -20,7 +20,7 @@ class SosecController extends Controller
         
         // Check if questions exist
         if ($soalSosec->isEmpty()) {
-            return redirect()->route('home')->with('error', 'Soal tes belum tersedia');
+            return redirect()->route('pages.dashboard')->with('error', 'Soal tes belum tersedia');
         }
         
         // Ensure page number is valid
@@ -163,11 +163,19 @@ class SosecController extends Controller
         $user->save();
 
         // Update penempatan kerja jika kedua tes sudah dilakukan
+<<<<<<< HEAD
         if ($user->test_mikat) {
             $penempatan = app(PenempatanController::class)->updatePenempatan($this->getOrderedRiasecCode($topThree), $user->test_mikat);
             $user->penempatan_kerja = $penempatan;
             $user->save();
         }
+=======
+        // if ($user->test_mikat) {
+        //     $penempatan = app(PenempatanController::class)->updatePenempatan($this->getOrderedRiasecCode($topThree), $user->test_mikat);
+        //     $user->penempatan_kerja = $penempatan;
+        //     $user->save();
+        // }
+>>>>>>> origin/main
         
         return redirect()->route('sosec.hasil')->with('success', 'Tes softskill RIASEC telah berhasil diselesaikan!');
     }
