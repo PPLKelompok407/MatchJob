@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('alamat', 255)->nullable();
             $table->string('riwayat_kerja')->nullable();
             $table->string('dokumen_pdf_path', 255)->nullable();
+            $table->string('test_mikat')->nullable();
+            $table->string('test_sosec')->nullable();
+            $table->string('penempatan_kerja')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
