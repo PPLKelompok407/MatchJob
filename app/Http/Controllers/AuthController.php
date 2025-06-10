@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,12 +18,22 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        // First check if credentials match an admin account
+        $admin = Admin::where('email', $request->email)->first();
+        
+        if ($admin && Hash::check($request->password, $admin->password)) {
+            Auth::guard('admin')->login($admin);
+            $request->session()->regenerate();
+            return redirect()->route('admin.dashboard')->with('success', 'Login admin berhasil!');
+        }
+
+        // If not admin, attempt normal user login
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
             return redirect()->intended('/dashboard')->with('success', 'Login berhasil!');
         }
@@ -62,11 +73,15 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        } else {
+            Auth::logout();
+        }
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
+        
         return redirect('/')->with('success', 'Logout berhasil!');
     }
 } 

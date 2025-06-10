@@ -20,7 +20,11 @@ class MikatController extends Controller
         
         // Check if questions exist
         if ($soalMikat->isEmpty()) {
+<<<<<<< HEAD
             return redirect()->route('home')->with('error', 'Soal tes belum tersedia');
+=======
+            return redirect()->route('pages.dashboard')->with('error', 'Soal tes belum tersedia');
+>>>>>>> origin/main
         }
         
         // Ensure page number is valid
