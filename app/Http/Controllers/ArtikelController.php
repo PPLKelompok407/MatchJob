@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Artikel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+//p
 class ArtikelController extends Controller
 {
     /**
