@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\PerusahaanController;
 
+// Landing Page
 Route::get('/', function () {
     return view('pages.landing');
 });
