@@ -79,7 +79,7 @@ use Illuminate\Support\Facades\Auth;
                 <!-- Right column - Apply button and match info -->
                 <div class="md:w-4/12">
                     <!-- Apply button -->
-                    <a href="#" class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center py-3 px-4 rounded-lg font-medium mb-6 transition duration-300">
+                    <a href="#" id="tombol-lamar" class="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center py-3 px-4 rounded-lg font-medium mb-6 transition duration-300">
                         Lamar Sekarang
                     </a>
                     
@@ -158,6 +158,52 @@ use Illuminate\Support\Facades\Auth;
                 });
             }
         }, false);
+
+        // Menjalankan script setelah halaman selesai dimuat
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Ambil tombol berdasarkan ID yang kita berikan ('tombol-lamar')
+            const tombolLamar = document.getElementById('tombol-lamar');
+
+            // Tambahkan fungsi yang akan dijalankan ketika tombol di-klik
+            tombolLamar.addEventListener('click', function (event) {
+                
+                // Mencegah link melakukan aksi default (pindah halaman)
+                event.preventDefault();
+
+                // Tampilkan popup SweetAlert2
+                Swal.fire({
+                    title: '<strong>Kontak Perusahaan</strong>',
+                    icon: 'info',
+                    html: `
+                        <div style="text-align: left; font-size: 16px;">
+                            <p style="margin-bottom: 1rem;">
+                                Silakan kirimkan CV dan portofolio Anda ke salah satu kontak di bawah ini:
+                            </p>
+                            <hr style="margin-bottom: 1rem;">
+                            <p style="margin-bottom: 0.5rem;">
+                                <strong>Email:</strong> 
+                                <a href="mailto:hrd@perusahaan-anda.com" style="color: #3b82f6;">hrd@perusahaan-anda.com</a>
+                            </p>
+                            <p style="margin-bottom: 0.5rem;">
+                                <strong>LinkedIn:</strong> 
+                                <a href="https://www.linkedin.com/company/nama-perusahaan" target="_blank" style="color: #3b82f6;">
+                                    Kunjungi Profil LinkedIn
+                                </a>
+                            </p>
+                            <p>
+                                <strong>No. Perusahaan (WA):</strong> 
+                                0812-3456-7890
+                            </p>
+                        </div>
+                    `,
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: 'Mengerti',
+                    confirmButtonAriaLabel: 'Mengerti',
+                });
+            });
+        });
     </script>
 </body>
 </html>
