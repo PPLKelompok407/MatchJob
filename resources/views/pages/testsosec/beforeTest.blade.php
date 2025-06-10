@@ -35,7 +35,7 @@
                     </li>
                     <li class="flex items-start">
                         <span class="font-[500] text-[#1C1C1C] text-[18px] mr-2 mt-1">•</span>
-                        <span class="text-gray-700">The test consists of 30 questions covering six RIASEC categories: Realistic, Investigative, Artistic, Social, Enterprising, and Conventional. Your responses will determine your primary personality type.</span>
+                        <span class="text-gray-700">The test consists of 30 questions covering six categories of RIASEC : Realistic, Investigative, Artistic, Social, Enterprising, and Conventional. Your responses will determine your primary personality type.</span>
                     </li>
                     <li class="flex items-start">
                         <span class="font-[500] text-[#1C1C1C] text-[18px] mr-2 mt-1">•</span>
