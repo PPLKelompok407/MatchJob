@@ -154,4 +154,4 @@ class ArtikelController extends Controller
     }
 } 
 
-//cobadulu
+//coba
