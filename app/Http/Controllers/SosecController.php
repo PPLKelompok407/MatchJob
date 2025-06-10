@@ -134,7 +134,7 @@ class SosecController extends Controller
         
         // Hindari pembagian dengan nol
         if ($totalSkor == 0) {
-            $totalSkor = 1; // Set default to 1 to avoid division by zero
+            $totalSkor = 1; // Set default ke 1 untuk menghindari division by zero
         }
 
         // Urutkan skor dari tertinggi ke terendah
@@ -150,6 +150,26 @@ class SosecController extends Controller
             'top_three' => $topThree
         ]);
         
+        // Clear test session data
+        Session::forget(['sosec_answers', 'sosec_flagged']);
+        
+        // Clear localStorage timer data
+        Session::flash('clear_timer', true);
+
+        // Simpan ke database
+        $user = Auth::user();
+        $tesSosec = implode(', ', array_keys($topThree));
+        $user->test_sosec = $tesSosec;
+        $user->save();
+
+        // Update penempatan kerja jika kedua tes sudah dilakukan
+        // if ($user->test_mikat) {
+        //     $penempatan = app(PenempatanController::class)->updatePenempatan($this->getOrderedRiasecCode($topThree), $user->test_mikat);
+        //     $user->penempatan_kerja = $penempatan;
+        //     $user->save();
+        // }
+        
+        return redirect()->route('sosec.hasil')->with('success', 'Tes softskill RIASEC telah berhasil diselesaikan!');
     }
 
     public function flagQuestion(Request $request, $page)
@@ -187,7 +207,7 @@ class SosecController extends Controller
             'conventional' => 'Tipe Konvensional - Anda menyukai pekerjaan yang terstruktur dan mengikuti prosedur yang jelas. Anda cenderung terorganisir, teliti, dan menyukai lingkungan kerja yang teratur dan terstruktur.'
         ];
 
-        // Career recommendations for each top 3 letter combination
+        // Rekomendasi karir untuk setiap kombinasi 3 huruf teratas
         $rekomendasi = $this->getRekomendasiKarir(array_keys($topThree));
 
         return view('pages.testSosec.hasil', compact('skor', 'totalSkor', 'topThree', 'deskripsi', 'rekomendasi'));

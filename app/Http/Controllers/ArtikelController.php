@@ -165,5 +165,3 @@ class ArtikelController extends Controller
             ->with('success', 'Artikel berhasil dihapus');
     }
 } 
-
-//coba
