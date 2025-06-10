@@ -35,7 +35,7 @@
                     </li>
                     <li class="flex items-start">
                         <span class="font-[500] text-[#1C1C1C] text-[18px] mr-2 mt-1">•</span>
-                        <span class="text-gray-700">The test consists of two questions types : 20 multiple choice and 5 essay. Make sure to carefully read each instruction before answering the questions.</span>
+                        <span class="text-gray-700">The test consists of two types of questions: 20 multiple choice and 5 essay. Make sure to carefully read each instruction before answering the questions.</span>
                     </li>
                     <li class="flex items-start">
                         <span class="font-[500] text-[#1C1C1C] text-[18px] mr-2 mt-1">•</span>

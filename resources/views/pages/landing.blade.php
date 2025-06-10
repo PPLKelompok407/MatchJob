@@ -77,7 +77,7 @@
             
             <div class="w-full max-w-6xl px-4">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
-                    <!-- Create Account -->
+                    <!-- Create account -->
                     <div class="flex flex-col items-center w-full md:w-1/4">
                         <img src="{{ asset('create_account.png') }}" alt="Create account" class="w-[72px]">
                         <h3 class="mt-6 text-[18px] font-[500]">Create account</h3>

@@ -102,7 +102,7 @@ use Illuminate\Support\Facades\Auth;
                     <div class="flex flex-col items-center w-full md:w-1/4">
                         <img src="{{ asset('create_account.png') }}" alt="Create account" class="w-[72px]">
                         <h3 class="mt-6 text-[18px] font-[500]">Create account</h3>
-                        <p class="text-center text-[14px] text-[#767F8C] font-[400] mt-2">Aliqum facilisis egestas sapien, nec tempor leo tristique at.</p>
+                        <p class="text-center text-[14px] text-[#767F8C] font-[400] mt-2">Aliquam facilisis egestas sapien, nec tempor leo tristique at.</p>
                     </div>
                     
                     <!-- Arrow Up -->

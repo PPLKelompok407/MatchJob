@@ -98,7 +98,7 @@
                 @endforeach
             @else
                 <div class="col-span-2 text-center py-12">
-                    <p class="text-xl text-gray-600">Tidak ada artikel yang tersedia.</p>
+                    <p class="text-xl text-gray-600">Tidak ada artikel yang ditemukan.</p>
                 </div>
             @endif
         </div>

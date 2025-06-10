@@ -14,7 +14,7 @@
     <div class="flex-grow flex items-center justify-center py-8 mt-4">
         <div class="w-[690px] h-[453px] px-[65px] py-[48px] bg-white rounded-lg shadow-md">
             <div class="mb-6 flex flex-col gap-4">
-                <h2 class="text-2xl font-bold text-gray-800">Selamat Datang!!</h2>
+                <h2 class="text-2xl font-bold text-gray-800">Selamat Datang!</h2>
                 <p class="text-[#9D9D9D] text-[16px] font-[400]">Silahkan masuk untuk dapat menggunakan layanan MatchJob atau klik tombol Register untuk membuat akun anda.</p>
             </div>
             

@@ -163,7 +163,7 @@
                 data: {
                     labels: ['Realistic', 'Artistic', 'Social'],
                     datasets: [{
-                        data: [67, 11, 22], // (Adjusted percentages for 3 categories)
+                        data: [67, 11, 22], // Adjusted percentages for 3 categories
                         backgroundColor: [
                             'rgba(96, 165, 250, 0.8)', // Light Blue
                             'rgba(192, 132, 252, 0.8)', // Light Purple
