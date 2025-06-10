@@ -1,12 +1,9 @@
-@php
-use Illuminate\Support\Facades\Auth;
-@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Landing pages</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -27,27 +24,9 @@ use Illuminate\Support\Facades\Auth;
                         <p>Match Job, sahabat terbaik pencari kerja.</p>
                     </div>
 
-                    @auth
-                        @php
-                            $user = Auth::user();
-                            $mikatCompleted = !empty($user->test_mikat);
-                            $sosecCompleted = !empty($user->test_sosec);
-                        @endphp
-
-                        @if($mikatCompleted && $sosecCompleted)
-                            <a href="{{ route('perusahaan.list') }}" class="w-[187px] h-[60px] bg-[#4880FF] text-[18px] font-[500] text-white rounded-[10px] flex items-center justify-center">
-                                Mulai cari kerja
-                            </a>
-                        @else
-                            <button id="showTestRequiredAlert" class="w-[187px] h-[60px] bg-[#4880FF] text-[18px] font-[500] text-white rounded-[10px] flex items-center justify-center">
-                                Mulai cari kerja
-                            </button>
-                        @endif
-                    @else
-                        <a href="{{ route('login') }}" class="w-[187px] h-[60px] bg-[#4880FF] text-[18px] font-[500] text-white rounded-[10px] flex items-center justify-center">
-                            Mulai cari kerja
-                        </a>
-                    @endauth
+                    <button class="w-[187px] h-[60px] bg-[#4880FF] text-[18px] font-[500] text-white rounded-[10px]">
+                        Mulai cari kerja
+                    </button>
                 </div>
 
                 <div class="col-span-2 flex flex-col">
@@ -56,7 +35,7 @@ use Illuminate\Support\Facades\Auth;
             </div>
         </div>
     </div>
-
+    
 
     <div class="flex justify-center mt-[93px]">
         <div class="w-[1580px] px-7 flex justify-between">
@@ -66,14 +45,14 @@ use Illuminate\Support\Facades\Auth;
 
             <div class="flex flex-col gap-[48px] justify-between w-[950px] ml-[-80px]">
                 <div class="flex flex-col gap-[21px] pr-20">
-                    <h3 class="text-[40px] font-[700]">Apa itu <span class="text-[#4880FF]">tes softskill</span> ?</h3>
-                    <p class="text-[#696984] text-[20px] font-[400]">Tes softskill adalah sebuah proses evaluasi yang dirancang untuk mengukur kemampuan teknis seseorang dalam bidang tertentu, seperti pemrograman, analisis data, desain, atau keterampilan teknis lainnya yang relevan dengan pekerjaan atau proyek tertentu. </p>
+                    <h3 class="text-[40px] font-[700]">Apa itu <span class="text-[#4880FF]">tes teknis</span> ?</h3>
+                    <p class="text-[#696984] text-[20px] font-[400]">Tes teknis adalah sebuah proses evaluasi yang dirancang untuk mengukur kemampuan teknis seseorang dalam bidang tertentu, seperti pemrograman, analisis data, desain, atau keterampilan teknis lainnya yang relevan dengan pekerjaan atau proyek tertentu. </p>
                 </div>
-                <a href="{{ route('sosec.before') }}"><img class="w-[400px]" src="{{ asset('landing3.png') }}" alt=""></a>
+                <a href=""><img class="w-[400px]" src="{{ asset('landing3.png') }}" alt=""></a>
             </div>
         </div>
     </div>
-
+    
     <div class="flex justify-center items-center mt-[116px] h-[500px] bg-[rgba(243,172,80,0.2)]">
         <div class="">
             <div class="w-[1500px] px-7 flex justify-between">
@@ -82,7 +61,7 @@ use Illuminate\Support\Facades\Auth;
                         <h3 class="text-[40px] font-[700]">Apa itu <span class="text-[#4880FF]">tes minat dan bakat</span> ?</h3>
                         <p class="text-[#696984] text-[20px] font-[400]">Tes minat dan bakat adalah jenis evaluasi yang bertujuan untuk membantu seseorang memahami minat, kepribadian, serta bakat atau kemampuan alami yang dimilikinya. Tes ini biasanya digunakan untuk panduan dalam pengambilan keputusan penting, seperti pemilihan jurusan pendidikan, karier, atau pengembangan diri.</p>
                     </div>
-                    <a href="{{ route('mikat.before') }}"><img class="w-[400px]" src="{{ asset('landing5.png') }}" alt=""></a>
+                    <a href=""><img class="w-[400px]" src="{{ asset('landing5.png') }}" alt=""></a>
                 </div>
     
                 <div class="flex flex-col w-[488px]">
@@ -161,9 +140,11 @@ use Illuminate\Support\Facades\Auth;
         </div>
     </div>
 
-    @include('pages.artikel.artikel')
-
     @include('component.footer')
+
+
+
+
 
     @if(session('success'))
     <script>
@@ -178,36 +159,5 @@ use Illuminate\Support\Facades\Auth;
         });
     </script>
     @endif
-
-    @if(session('test_required'))
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-                title: "Perhatian!",
-                text: "{{ session('test_required') }}",
-                icon: "warning",
-                confirmButtonText: "Mengerti",
-                confirmButtonColor: "#3085d6"
-            });
-        });
-    </script>
-    @endif
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const testRequiredButton = document.getElementById('showTestRequiredAlert');
-            if (testRequiredButton) {
-                testRequiredButton.addEventListener('click', function() {
-                    Swal.fire({
-                        title: "Perhatian!",
-                        text: "Anda harus menyelesaikan Test Softskill dan Test Minat Bakat terlebih dahulu!",
-                        icon: "warning",
-                        confirmButtonText: "Mengerti",
-                        confirmButtonColor: "#3085d6"
-                    });
-                });
-            }
-        });
-    </script>
 </body>
 </html>

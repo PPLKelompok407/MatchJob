@@ -28,6 +28,9 @@ class User extends Authenticatable
         'alamat',
         'riwayat_kerja',
         'dokumen_pdf_path',
+        'test_mikat',
+        'tes_teknis',
+        'penempatan_kerja',
     ];
 
     /**
