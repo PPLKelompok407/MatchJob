@@ -20,6 +20,9 @@ class ProfileController extends Controller
      */
     public function analys()
     {
+<<<<<<< HEAD
+        return view('pages.profile.analys');
+=======
         $user = Auth::user();
         $recommendedCompanies = [];
         $mikatResults = [];
@@ -78,6 +81,7 @@ class ProfileController extends Controller
         }
         
         return view('pages.profile.analys', compact('recommendedCompanies', 'mikatResults', 'sosecResults'));
+>>>>>>> origin/main
     }
 
     /**

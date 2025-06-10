@@ -18,7 +18,7 @@ class Artikel extends Seeder
                 'link' => 'https://www.recruitfirst.co.id/id/blog/hard-skill-yang-dibutuhkan-dalam-dunia-kerja/',
                 'image' => 'artikel/artikel_hard_skill.png',
                 'category' => 'Hard Skill',
-                'judul' => '5 Hard Skill yang Dibutuhkan dalam Dunia Kerja saat Ini',
+                'judul' => '5 Hard Skill yang Dibutuhkan dalam Dunia Kerja saat ini',
                 'description' => 'Class, launched less than a year ago by Blackboard co-founder Michael Chasen, integrates...',
             ],
             [
