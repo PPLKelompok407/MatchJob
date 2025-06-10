@@ -150,34 +150,7 @@ class SosecController extends Controller
             'top_three' => $topThree
         ]);
         
-        // Clear test session data
-        Session::forget(['sosec_answers', 'sosec_flagged']);
-        
-        // Clear localStorage timer data
-        Session::flash('clear_timer', true);
-
-        // Simpan ke database
-        $user = Auth::user();
-        $tesSosec = implode(', ', array_keys($topThree));
-        $user->test_sosec = $tesSosec;
-        $user->save();
-
-        // Update penempatan kerja jika kedua tes sudah dilakukan
-<<<<<<< HEAD
-        if ($user->test_mikat) {
-            $penempatan = app(PenempatanController::class)->updatePenempatan($this->getOrderedRiasecCode($topThree), $user->test_mikat);
-            $user->penempatan_kerja = $penempatan;
-            $user->save();
-        }
-=======
-        // if ($user->test_mikat) {
-        //     $penempatan = app(PenempatanController::class)->updatePenempatan($this->getOrderedRiasecCode($topThree), $user->test_mikat);
-        //     $user->penempatan_kerja = $penempatan;
-        //     $user->save();
-        // }
->>>>>>> origin/main
-        
-        return redirect()->route('sosec.hasil')->with('success', 'Tes softskill RIASEC telah berhasil diselesaikan!');
+        // Clear test ses
     }
 
     public function flagQuestion(Request $request, $page)
