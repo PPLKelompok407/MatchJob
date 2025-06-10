@@ -1,4 +1,5 @@
 @php
+// Menggunakan facade Auth dari Laravel untuk autentikasi pengguna
 use Illuminate\Support\Facades\Auth;
 @endphp
 
@@ -8,10 +9,12 @@ use Illuminate\Support\Facades\Auth;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Perusahaan - MatchJob</title>
+    <!-- Memuat library Tailwind CSS dari CDN untuk styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Menyisipkan komponen navbar dari folder component -->
     @include('component.navbar')
 
     <div class="bg-gradient-to-r bg-[#EDF2FF] h-[155px] pt-4 px-6 md:px-12 lg:px-20 overflow-hidden">
