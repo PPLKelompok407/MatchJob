@@ -22,9 +22,10 @@ class Artikel extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'judul',
+        'category',
+        'description',
         'link',
         'image',
-        'title',
-        'description',
     ];
 } 

@@ -68,12 +68,32 @@ use Illuminate\Support\Facades\Auth;
                                         } elseif ($matchPercentage >= 40) {
                                             $matchColor = 'bg-yellow-500';
                                         }
+                                        
+                                        // Get address match percentage if available
+                                        $addressMatchPercentage = isset($company->address_match) ? $company->address_match : 0;
+                                        $addressMatchColor = 'bg-red-500';
+                                        if ($addressMatchPercentage >= 80) {
+                                            $addressMatchColor = 'bg-green-500';
+                                        } elseif ($addressMatchPercentage >= 60) {
+                                            $addressMatchColor = 'bg-blue-500';
+                                        } elseif ($addressMatchPercentage >= 40) {
+                                            $addressMatchColor = 'bg-yellow-500';
+                                        }
                                     @endphp
-                                    <div class="flex items-center">
+                                    <!-- Overall match score -->
+                                    <div class="flex items-center mb-2">
                                         <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
                                             <div class="{{ $matchColor }} h-2.5 rounded-full" style="width: {{ $matchPercentage }}%"></div>
                                         </div>
                                         <span class="text-sm font-medium text-gray-700">{{ $matchPercentage }}% Cocok</span>
+                                    </div>
+                                    
+                                    <!-- Address match score -->
+                                    <div class="flex items-center">
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                                            <div class="{{ $addressMatchColor }} h-2.5 rounded-full" style="width: {{ $addressMatchPercentage }}%"></div>
+                                        </div>
+                                        <span class="text-sm font-medium text-gray-700">{{ $addressMatchPercentage }}% Jarak</span>
                                     </div>
                                 </div>
                                 @endif

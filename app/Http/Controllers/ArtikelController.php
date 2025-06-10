@@ -16,10 +16,10 @@ class ArtikelController extends Controller
      */
     public function index(Request $request)
     {
-        $artikels = Artikel::latest();
+        $artikels = Artikel::orderBy('id', 'desc');
 
         if ($request->has('search')) {
-            $artikels = $artikels->where('title', 'like', '%' . $request->search . '%')
+            $artikels = $artikels->where('judul', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%');
         }
 
@@ -61,16 +61,22 @@ class ArtikelController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'judul' => 'required|string|max:255',
+            'category' => 'required|string',
             'description' => 'required|string',
             'link' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $imagePath = $request->file('image')->store('artikel', 'public');
+        // Store image in public/artikel directory instead of storage
+        $image = $request->file('image');
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $image->move(public_path('artikel'), $imageName);
+        $imagePath = 'artikel/' . $imageName;
 
         Artikel::create([
-            'title' => $request->title,
+            'judul' => $request->judul,
+            'category' => $request->category,
             'description' => $request->description,
             'link' => $request->link,
             'image' => $imagePath,
@@ -105,25 +111,31 @@ class ArtikelController extends Controller
         $artikel = Artikel::findOrFail($id);
         
         $request->validate([
-            'title' => 'required|string|max:255',
+            'judul' => 'required|string|max:255',
+            'category' => 'required|string',
             'description' => 'required|string',
             'link' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $data = [
-            'title' => $request->title,
+            'judul' => $request->judul,
+            'category' => $request->category,
             'description' => $request->description,
             'link' => $request->link,
         ];
 
         if ($request->hasFile('image')) {
             // Delete old image if it exists
-            if ($artikel->image) {
-                Storage::disk('public')->delete($artikel->image);
+            if ($artikel->image && file_exists(public_path($artikel->image))) {
+                unlink(public_path($artikel->image));
             }
             
-            $data['image'] = $request->file('image')->store('artikel', 'public');
+            // Store new image in public/artikel directory
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('artikel'), $imageName);
+            $data['image'] = 'artikel/' . $imageName;
         }
 
         $artikel->update($data);
@@ -143,8 +155,8 @@ class ArtikelController extends Controller
         $artikel = Artikel::findOrFail($id);
         
         // Delete image if it exists
-        if ($artikel->image) {
-            Storage::disk('public')->delete($artikel->image);
+        if ($artikel->image && file_exists(public_path($artikel->image))) {
+            unlink(public_path($artikel->image));
         }
         
         $artikel->delete();
