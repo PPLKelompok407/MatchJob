@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\Auth;
                     <button type="submit" class="bg-[#4880FF] text-white font-medium px-6 py-2 rounded-md ml-2 shadow-sm hover:bg-blue-600 transition-colors">Cari</button>
                 </form>
             </div>
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">Rekomendasi <span class="text-[#4880FF]">perusahaan</span> untuk Anda</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">Rekomendasi<span class="text-[#4880FF]">perusahaan</span> untuk Anda</h2>
             
             <div class="grid grid-cols-1 gap-6">
                 @forelse($perusahaan as $company)
